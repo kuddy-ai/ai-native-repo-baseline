@@ -1,0 +1,22 @@
+[project]
+name = "replace-with-project-name"
+version = "0.1.0"
+description = "Replace with project description"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = []
+
+[dependency-groups]
+dev = []
+
+[tool.uv]
+# Dependency cooldown: avoid resolving packages uploaded too recently.
+# Requires a uv version that supports relative exclude-newer durations.
+exclude-newer = "7 days"
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

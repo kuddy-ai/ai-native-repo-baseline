@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+if [[ "$branch" == "main" || "$branch" == "master" ]]; then
+  echo "ERROR: Direct commits to $branch are not allowed. Use a feature branch + PR."
+  exit 1
+fi
+
+sensitive_regex='(^|/)(\.env|credentials\.json|secrets\.json|id_rsa|id_ed25519)$|\.(pem|key|p12|pfx)$'
+staged_files="$(git diff --cached --name-only)"
+
+if echo "$staged_files" | grep -E "$sensitive_regex" >/dev/null 2>&1; then
+  echo "ERROR: Sensitive file detected in staged changes."
+  echo "$staged_files" | grep -E "$sensitive_regex" || true
+  exit 1
+fi
+
+max_size=$((5 * 1024 * 1024))
+while IFS= read -r file; do
+  [[ -f "$file" ]] || continue
+  size=$(wc -c < "$file" | tr -d ' ')
+  if [[ "$size" -gt "$max_size" ]]; then
+    echo "ERROR: Large file detected: $file ($size bytes). Limit is 5MB."
+    exit 1
+  fi
+done <<< "$staged_files"
+
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --redact --verbose
+else
+  echo "WARN: gitleaks is not installed; secret scan skipped locally. CI must still run it."
+fi
+
+warn_patterns='console\.log|debugger|dbg!\(|println!\(|fmt\.Println|log\.Printf|TODO|FIXME'
+if [[ -n "$staged_files" ]]; then
+  echo "$staged_files" | xargs -r grep -nE "$warn_patterns" 2>/dev/null || true
+fi

@@ -1,0 +1,13 @@
+{
+  "name": "replace-with-project-name",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "packageManager": "pnpm@10.21.0",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.21.0"
+  }
+}
