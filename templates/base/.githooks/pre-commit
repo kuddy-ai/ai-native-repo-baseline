@@ -67,6 +67,10 @@ fi
 debug_pattern='console\.log|debugger|dbg!|println!|fmt\.Println|log\.Printf|TODO|FIXME'
 
 while IFS= read -r file; do
+  # Skip .githooks directory to avoid self-scanning
+  if [[ "$file" == .githooks/* ]]; then
+    continue
+  fi
   if [[ -f "$file" ]]; then
     if grep -nE "$debug_pattern" "$file" >/tmp/precommit-debug-lines 2>/dev/null; then
       echo "WARNING: debug or temporary marker found in $file:"
