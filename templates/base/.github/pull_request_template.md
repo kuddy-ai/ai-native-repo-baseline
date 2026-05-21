@@ -12,17 +12,20 @@ Closes #
 
 ## Release Please Changelog Override
 
-如果本 PR 包含 `feat` / `fix` / `perf` / `security` / `deps` 等会进入版本日志的变更，必须填写 `BEGIN_COMMIT_OVERRIDE`。
+如果本 PR 包含 `feat` / `fix` / `perf` / `security` / `deps` 等会进入版本日志的变更，必须在下方填写常规提交格式。
 
-每一条会进入 CHANGELOG 的变更，标题末尾必须包含对应 Issue 的 Markdown 链接。
+> **💡 多功能/Squash 合并规范：** 
+> 每一条会进入 CHANGELOG 的变更，必须单独写成一行。末尾建议包含对应 Issue 的 Markdown 链接。
 
-请把下面示例复制到本段下方并替换真实内容：
+请把下面对应区块复制到本段下方，并替换真实内容：
 
+<!-- x-release-please-start-version -->
+### 🛠️ 变更列表 (Changelog Footers)
 <!--
-BEGIN_COMMIT_OVERRIDE
-fix(scope): change summary ([#123](https://github.com/<owner>/<repo>/issues/123))
-END_COMMIT_OVERRIDE
+feat(作用域): 新增了某某核心功能 ([#123](https://github.com/<owner>/<repo>/issues/123))
+fix(作用域): 修复了某某已知问题 ([#124](https://github.com/<owner>/<repo>/issues/124))
 -->
+<!-- x-release-please-end-version -->
 
 如果本 PR 不进入 release notes，请说明原因：
 
