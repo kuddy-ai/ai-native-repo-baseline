@@ -46,3 +46,36 @@ __pycache__/
 .tmp/
 tmp/
 .cache/
+
+# AI Coding Assistants
+# Codex
+.codex/
+.codex/worktrees/
+
+# Claude
+.claude/
+.claude/settings.json
+.claude/settings.local.json
+.claude/conversations/
+.claude/sessions/
+.claude/checkpoints/
+.claude/worktrees/
+.claude/skills/state/
+.claude/skills/tmp/
+.claude/skills/.cache/
+
+# Cursor
+.cursor/
+.cursor/index/
+.cursor/tmp/
+
+# Gemini
+.gemini/
+.geminiignore
+
+# GitHub Copilot
+.github/copilot/
+
+# Aider / Windsurf
+.aider/
+.windsurfrules/
